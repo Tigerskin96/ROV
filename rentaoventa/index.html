@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/5d4cc0a691.js" crossorigin="anonymous"></script>
+
+
+    <title>Notificaciones</title>
+</head>
+
+<body>
+    <header>
+        <h3>Notificaciones</h3>
+    </header>
+    <main>
+
+        <section class="layout">
+            <div>
+                <nav class="accordion-container">
+                    <div class="main-item">
+                        <span>usuarios</span><i class="fa-solid fa-circle-chevron-down"></i>
+                    </div>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="users_all" name="users" value="usuarios">
+                            <label for="users_all">Todos</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="users_kw" name="users" value="KW">
+                            <label for="users_kw">KW</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="users_cb" name="users" value="CB">
+                            <label for="users_cb">CB</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="users_remax" name="users" value="REMAX">
+                            <label for="users_remax">REMAX</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="users_fiabci" name="users" value="FIABCI">
+                            <label for="users_fiabci">FIABCI</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="users_ampi" name="users" value="AMPI">
+                            <label for="users_ampi">AMPI</label>
+                        </li>
+
+                    </ul>
+                </nav>
+
+            </div>
+            <div>
+                <nav class="accordion-container">
+                    <div class="main-item">
+                        <span>plataforma</span><i class="fa-solid fa-circle-chevron-down"></i>
+                    </div>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="plataforma_all" name="plataforma" value="plataforma">
+                            <label for="plataforma_all">Todos</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="plataforma_renta_venta" name="plataforma" value="Renta o Venta">
+                            <label for="plataforma_renta_venta">Renta o Venta</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="plataforma_global_mls" name="plataforma" value="Global MLS">
+                            <label for="plataforma_global_mls">Global MLS</label>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div>
+                <nav class="accordion-container">
+                    <div class="main-item">
+                        <span>Dispositivos</span><i class="fa-solid fa-circle-chevron-down"></i>
+                    </div>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="NONE" name="dispositivo" value="NONE">
+                            <label for="dispositivo_all">Todos</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="ANDROID" name="dispositivo" value="ANDROID">
+                            <label for="android">Android</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="IOS" name="dispositivo" value="IOS">
+                            <label for="ios">iOS</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="WEB" name="dispositivo" value="WEB">
+                            <label for="web">Web</label>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div>
+                <nav class="accordion-container">
+                    <div class="main-item">
+                        <span>Canal</span><i class="fa-solid fa-circle-chevron-down"></i>
+                    </div>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="canal_todos" name="canal" value="todos">
+                            <label for="canal_todos">Todos</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="whatsapp" name="canal" value="WhatsApp">
+                            <label for="whatsapp">WhatsApp</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="telegram" name="canal" value="Telegram">
+                            <label for="telegram">Telegram</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="push" name="canal" value="Push">
+                            <label for="push">Push</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="email" name="canal" value="Email">
+                            <label for="email">Email</label>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div>
+                <form id="miFormulario" method="post" enctype="multipart/form-data" onsubmit="return validarURL()">
+                    <div class="titulo">
+                        <h1>selección de recursos</h1>
+                    </div>
+                    <input type="text" id="titulo" name="titulo" placeholder="ingresa titulo" ><br><br>
+
+                    <input type="file" id="archivo" name="archivo" placeholder="cargar imagen" ><br>
+                    <input type="button" value="subir imagen" id="subirImagenBtn"><br><br>
+
+                    <input type="text" id="descripcion" name="descripcion" placeholder="ingresa descripcion" ><br><br>
+
+                    <input type="text" id="url" name="url" placeholder="ingresa URL"required ><br><br>
+
+                    <input type="submit" value="Enviar">
+                </form>
+            </div>
+        </section>
+        <section class="layout_dos">
+            <div class="search-container">
+                <input type="text" id="search-box" placeholder="Ingrese Correo Electronico">
+                <button id="search-button"> <i class="fa-solid fa-magnifying-glass"></i></button>
+                <ul id="results"></ul>
+            </div>
+            
+        </section>
+        <footer>    
+        </footer>
+    </main>
+
+<script src="metodobusqueda.js"></script>
+<script src="metodoEnv.js"></script>
+<script src="script.js"></script>
+
+</body>
+
+</html>
