@@ -11,8 +11,8 @@
         const canalesSeleccionados = Array.from(canalCheckboxes).map(checkbox => checkbox.value);
         const plataformasSeleccionadas = Array.from(plataformaCheckboxes).map(checkbox => checkbox.value);
 
-        const userId = "6254769809129472"; // aqui debo obtener el arreglo de array 
-
+        //const userId = "6254769809129472"; // aqui debo obtener el arreglo de array ROV
+        const userId = "6332766415224832"; //global
         const titulo = document.getElementById('titulo').value;
         const descripcion = document.getElementById('descripcion').value;
         const url = document.getElementById('url').value;
@@ -89,14 +89,16 @@ async function upload(files) {
     const response = await fetch('https://inmobimapa-backend-develop.appspot.com/upload2');
     const jsonResponse = await response.json();
 
-    if (jsonResponse.item) {
-        const uploadResponse = await fetch(jsonResponse.item, {
-            method: 'POST',
-            body: form
-        });
+    const uploadResponse = await fetch('https://inmobimapa-backend-develop.appspot.com/upload', {
+        method: 'POST',
+        body: form
+    });
 
-        uploadedImageUrl = jsonResponse.thumbnail || ''; // aqui deberia guardar la url
-        return uploadResponse.json();
+    const uploadJsonResponse = await uploadResponse.json();
+
+    if (uploadJsonResponse.items && uploadJsonResponse.items.length > 0) {
+        uploadedImageUrl = uploadJsonResponse.items[0].thumbnail || ''; // debe almacenar la URL generada en el regreso
+        return uploadJsonResponse; 
     }
 }
 
@@ -121,7 +123,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Upload error:', error);
             }
         } else {
-            console.error('El archivo seleccionado no es una imagen válida.');
+            console.error('El archivo seleccionado no es válido.');
+            alert("El archivo seleccionado no es válido.");
         }
     });
 });
