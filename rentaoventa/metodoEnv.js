@@ -1,4 +1,4 @@
-    const miFormulario = document.getElementById('miFormulario');
+       const miFormulario = document.getElementById('miFormulario');
 
     miFormulario.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -12,7 +12,8 @@
         const plataformasSeleccionadas = Array.from(plataformaCheckboxes).map(checkbox => checkbox.value);
 
         //const userId = "6254769809129472"; // aqui debo obtener el arreglo de array ROV
-        const userId = "6332766415224832"; //global
+        //const userId = "6332766415224832"; //global
+        
         const titulo = document.getElementById('titulo').value;
         const descripcion = document.getElementById('descripcion').value;
         const url = document.getElementById('url').value;
@@ -28,7 +29,7 @@
         }
 
         const solicitud = {
-            userIds: [userId], // llama el array que se debe de generar
+            userIds: [selectedUser.id], // llama el array que se debe de generar
             marketing: {
                 userId: null, // quitalo para que sirva por lo que comento ricardo
                 title: titulo,
@@ -129,3 +130,87 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+
+// busqueda de usuarios
+const searchBox = document.getElementById('search-box');
+const resultsList = document.getElementById('results');
+let selectedUser = null; // Variable global para almacenar el usuario 
+
+searchBox.addEventListener('input', async () => {
+    const email = searchBox.value.trim();
+    if (email !== '') {
+        await searchUsersByEmail(email);
+    } else {
+        resultsList.innerHTML = '';
+    }
+});
+
+async function searchUsersByEmail(email) {
+    try {
+        //ROV API
+        const response1 = await fetch(`https://inmobimapa-backend-develop.appspot.com/_ah/api/common/v1/getIdAndNameRVByEmail?email=${email}`);
+        const data1 = await response1.json();
+
+        //GlobalMLS API
+        const response2 = await fetch(`https://inmobimapa-backend-develop.appspot.com/_ah/api/common/v1/getIdAndNameGByEmail?email=${email}`);
+        const data2 = await response2.json();
+
+        resultsList.innerHTML = '';
+
+        // Procesa los datos de la API ROV
+        if (data1.code === 200) {
+            for (const key in data1.item) {
+                if (data1.item.hasOwnProperty(key)) {
+                    const userLi = document.createElement('li');
+                    userLi.textContent = `${data1.item[key]} -ID: ${key} - Renta o venta`;
+                    userLi.addEventListener('click', () => {
+                        // Al hacer clic en el usuario, guárdalo en la variable global
+                        selectedUser = {
+                            name: data1.item[key],
+                            id: key,
+                            source: 'Renta o venta'
+                        };
+                        // Muestra una alerta con los detalles del usuario
+                        showAlert(selectedUser);
+                    });
+                    resultsList.appendChild(userLi);
+                }
+            }
+        }
+
+        // Procesa los datos de la API GLOBALMLS
+        if (data2.code === 200) {
+            for (const key in data2.item) {
+                if (data2.item.hasOwnProperty(key)) {
+                    const userLi = document.createElement('li');
+                    userLi.textContent = `${data2.item[key]} -ID: ${key} - GlobalMLS`;
+                    userLi.addEventListener('click', () => {
+                        // Al hacer clic en el usuario, guárdalo en la variable global
+                        selectedUser = {
+                            name: data2.item[key],
+                            id: key,
+                            source: 'GlobalMLS'
+                        };
+                        // Muestra una alerta con los detalles del usuario
+                        showAlert(selectedUser);
+                    });
+                    resultsList.appendChild(userLi);
+                }
+            }
+        }
+
+        if (data1.code !== 200 && data2.code !== 200) {
+            const errorLi = document.createElement('li');
+            errorLi.textContent = 'No se encontraron usuarios con ese email.';
+            resultsList.appendChild(errorLi);
+        }
+    } catch (error) {
+        console.error('Error al buscar usuarios:', error);
+    }
+}
+
+function showAlert(user) {
+    alert(`Usuario Seleccionado:\nNombre: ${user.name}\nID: ${user.id}\nFuente: ${user.source}`);
+}
