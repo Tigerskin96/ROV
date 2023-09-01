@@ -27,7 +27,7 @@ const searchBox = document.getElementById('search-box');
                     for (const key in data1.item) {
                         if (data1.item.hasOwnProperty(key)) {
                             const userLi = document.createElement('li');
-                            userLi.textContent = `${data1.item[key]} - Renta o venta`;
+                            userLi.textContent = `${data1.item[key]} -ID: ${key} - Renta o venta`;
                             resultsList.appendChild(userLi);
                         }
                     }
@@ -38,7 +38,7 @@ const searchBox = document.getElementById('search-box');
                     for (const key in data2.item) {
                         if (data2.item.hasOwnProperty(key)) {
                             const userLi = document.createElement('li');
-                            userLi.textContent = `${data2.item[key]} - GlobalMLS`;
+                            userLi.textContent = `${data2.item[key]} -ID: ${key} - GlobalMLS`;
                             resultsList.appendChild(userLi);
                         }
                     }
