@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const result = await upload(files);
                 console.log('Upload result:', result);
                 console.log('Uploaded Image URL:', uploadedImageUrl);
+                alert("la imagen se subio correctamente")
             } catch (error) {
                 console.error('Upload error:', error);
             }
