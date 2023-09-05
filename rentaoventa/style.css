@@ -1,4 +1,3 @@
-
 :root {
     --primario: #56b3b2;
     --background-acordeon: #f2f2f2;
@@ -113,6 +112,13 @@ header {
     display: flex;
     width: 100%;
     align-items: center;
+    left: -10px;
+    position: relative;
+}
+
+.accordion-container>ul>li>label,input{
+    position: relative;
+    left: 10px;
 }
 
 .accordion-container>ul>li:hover {
@@ -183,10 +189,10 @@ header {
 
 
     /* CSS Formulario */
-
+/* Estilos generales del formulario */
 form {
     max-width: 500px;
-    margin: 10px 50px 20px;
+    margin: 10px auto;
     padding: 20px;
     background-color: transparent;
     border: 1px solid #ccc;
@@ -194,42 +200,47 @@ form {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Estilos para los títulos */
 .titulo {
     text-align: center;
     margin-bottom: 15px;
     border: 1px solid var(--primario);
     border-radius: 5px;
+    padding: 5px;
 }
 
-form>input[type="text"],
-input[type="file"] {
+/* Estilos para los campos de texto y textarea */
+form input[type="text"],
+input[type="file"],
+textarea {
     width: 100%;
-    padding: 8px;
+    margin-left: -10px;
+    padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--primario); /* Utiliza el color primario */
     border-radius: 5px;
     font-weight: bold;
-    border: 1px solid var(--primario);
-    max-width: 95%;
+    max-width: 93%; /* Cambiado a 100% para un ajuste uniforme */
     outline: none;
 }
 
-input[type="file"] {
-    padding: 5px;
-    border: 1px solid var(--primario);
-    cursor: pointer;
+/* Estilos específicos para textarea */
+textarea{
+    margin-left: 3px;
 }
-
-input[type="submit"] {
+/* Estilos para el botón de enviar */
+form input[type="submit"] {
     background-color: var(--primario);
     color: #fff;
-    padding: 10px 50px;
-    
+    padding: 10px 75px; /* Ajustado el ancho */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: block; /* Para que el botón ocupe todo el ancho */
+    margin: 0 auto; /* Centrado horizontal */
 }
+
 
 input[type="submit"]:hover {
     background-color: var(--hover);
