@@ -21,7 +21,7 @@
             <div>
                 <nav class="accordion-container">
                     <div class="main-item">
-                        <span>usuarios</span><i class="fa-solid fa-circle-chevron-down"></i>
+                        <span>Brands</span><i class="fa-solid fa-circle-chevron-down"></i>
                     </div>
                     <ul>
                         <li>
@@ -56,7 +56,7 @@
             <div>
                 <nav class="accordion-container">
                     <div class="main-item">
-                        <span>plataforma</span><i class="fa-solid fa-circle-chevron-down"></i>
+                        <span>Plataforma</span><i class="fa-solid fa-circle-chevron-down"></i>
                     </div>
                     <ul>
                         <li>
@@ -81,19 +81,19 @@
                     </div>
                     <ul>
                         <li>
-                            <input type="checkbox" id="NONE" name="dispositivo" value="NONE">
+                            <input type="radio" id="NONE" name="dispositivo" value="NONE">
                             <label for="dispositivo_all">Todos</label>
                         </li>
                         <li>
-                            <input type="checkbox" id="ANDROID" name="dispositivo" value="ANDROID">
+                            <input type="radio" id="ANDROID" name="dispositivo" value="ANDROID">
                             <label for="android">Android</label>
                         </li>
                         <li>
-                            <input type="checkbox" id="IOS" name="dispositivo" value="IOS">
+                            <input type="radio" id="IOS" name="dispositivo" value="IOS">
                             <label for="ios">iOS</label>
                         </li>
                         <li>
-                            <input type="checkbox" id="WEB" name="dispositivo" value="WEB">
+                            <input type="radio" id="WEB" name="dispositivo" value="WEB">
                             <label for="web">Web</label>
                         </li>
                     </ul>
@@ -119,10 +119,6 @@
                             <label for="telegram">Telegram</label>
                         </li>
                         <li>
-                            <input type="checkbox" id="push" name="canal" value="Push">
-                            <label for="push">Push</label>
-                        </li>
-                        <li>
                             <input type="checkbox" id="email" name="canal" value="Email">
                             <label for="email">Email</label>
                         </li>
@@ -133,16 +129,16 @@
             <div>
                 <form id="miFormulario" method="post" enctype="multipart/form-data" onsubmit="return validarURL()">
                     <div class="titulo">
-                        <h1>selección de recursos</h1>
+                        <h1>Selección de recursos</h1>
                     </div>
-                    <input type="text" id="titulo" name="titulo" placeholder="ingresa titulo" ><br><br>
+                    <input type="text" id="titulo" name="titulo" placeholder="Ingresa titulo" ><br><br>
 
                     <input type="file" id="archivo" name="archivo" placeholder="cargar imagen" ><br>
                     <input type="button" value="subir imagen" id="subirImagenBtn"><br><br>
 
-                    <input type="text" id="descripcion" name="descripcion" placeholder="ingresa descripcion" ><br><br>
+                    <input type="text" id="descripcion" name="descripcion" placeholder="Ingresa descripcion" ><br><br>
 
-                    <input type="text" id="url" name="url" placeholder="ingresa URL"required ><br><br>
+                    <input type="text" id="url" name="url" placeholder="Ingresa URL"required ><br><br>
 
                     <input type="submit" value="Enviar">
                 </form>
