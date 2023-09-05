@@ -1,4 +1,4 @@
-      const miFormulario = document.getElementById('miFormulario');
+    const miFormulario = document.getElementById('miFormulario');
 
     /*-------------------------------------------
     ---------------------------------------------
@@ -64,7 +64,7 @@
         const titulo = document.getElementById('titulo').value;
         const descripcion = document.getElementById('descripcion').value;
         const url = document.getElementById('url').value;
-
+        const userIds = selectedUsersArray.map(user => user.id);
         let apiEndpoints = []; // Almacenar los endpoints 
 
         if (plataformasSeleccionadas.includes('Renta o Venta') || plataformasSeleccionadas.includes('Todos')) {
@@ -78,7 +78,7 @@
         await subirImagen();
 
         const solicitud = {
-            userIds: [selectedUser.id], // llama el array que se debe de generar
+            userIds: userIds, // llama el array que se debe de generar
             marketing: {
                 userId: null, // quitalo para que sirva por lo que comento ricardo
                 title: titulo,
@@ -179,7 +179,7 @@ async function subirImagen() {
 
 
 
-
+const selectedUsersArray = [];
 // busqueda de usuarios
 const searchBox = document.getElementById('search-box');
 const resultsList = document.getElementById('results');
@@ -264,4 +264,7 @@ async function searchUsersByEmail(email) {  //colocar timestap 1
 
 function showAlert(user) {
     alert(`Usuario Seleccionado:\nNombre: ${user.name}\nID: ${user.id}\nFuente: ${user.source}`);
+    // Agrega el usuario seleccionado al array global
+    selectedUsersArray.push(user);
+    console.log('ids agregados:', selectedUsersArray);
 }
