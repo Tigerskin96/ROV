@@ -1,18 +1,16 @@
-       const miFormulario = document.getElementById('miFormulario');
+    const miFormulario = document.getElementById('miFormulario');
 
     miFormulario.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const dispositivoCheckboxes = document.querySelectorAll('input[name="dispositivo"]:checked');
+        const radioDispositivoSeleccionado = document.querySelector('input[type="radio"][name="dispositivo"]:checked');
         const canalCheckboxes = document.querySelectorAll('input[name="canal"]:checked');
         const plataformaCheckboxes = document.querySelectorAll('input[name="plataforma"]:checked');
 
-        const dispositivosSeleccionados = Array.from(dispositivoCheckboxes).map(checkbox => checkbox.value);
+        const dispositivoSeleccionado = radioDispositivoSeleccionado ? radioDispositivoSeleccionado.value : '';
         const canalesSeleccionados = Array.from(canalCheckboxes).map(checkbox => checkbox.value);
         const plataformasSeleccionadas = Array.from(plataformaCheckboxes).map(checkbox => checkbox.value);
 
-        //const userId = "6254769809129472"; // aqui debo obtener el arreglo de array ROV
-        //const userId = "6332766415224832"; //global
         
         const titulo = document.getElementById('titulo').value;
         const descripcion = document.getElementById('descripcion').value;
@@ -37,9 +35,9 @@
                 body: descripcion,
                 url: url
             },
-            deviceTypeEnum: dispositivosSeleccionados[0], // solo toma el primer dispositivo seleccionado para que no truene
+            deviceTypeEnum: dispositivoSeleccionado, // solo toma el primer dispositivo seleccionado para que no truene
             email: canalesSeleccionados.includes('Email'),
-            notification: canalesSeleccionados.includes('Push'),
+            notification: true,
             telegram: canalesSeleccionados.includes('Telegram'),
             whatsApp: canalesSeleccionados.includes('WhatsApp')
         };
@@ -137,17 +135,21 @@ document.addEventListener('DOMContentLoaded', function () {
 const searchBox = document.getElementById('search-box');
 const resultsList = document.getElementById('results');
 let selectedUser = null; // Variable global para almacenar el usuario 
+let countdownTimer = null; // Variable para el temporizador de cuenta regresiva
 
-searchBox.addEventListener('input', async () => {
-    const email = searchBox.value.trim();
-    if (email !== '') {
-        await searchUsersByEmail(email);
-    } else {
-        resultsList.innerHTML = '';
-    }
+searchBox.addEventListener('input', () => {
+    clearTimeout(countdownTimer); // Reiniciar el temporizador si se ingresa una nueva letra o número
+    countdownTimer = setTimeout(() => {
+        const email = searchBox.value.trim();
+        if (email !== '') {
+            searchUsersByEmail(email);
+        } else {
+            resultsList.innerHTML = '';
+        }
+    }, 1500); // Establecer un temporizador de 1.5 segundos
 });
 
-async function searchUsersByEmail(email) {
+async function searchUsersByEmail(email) {  //colocar timestap 1 
     try {
         //ROV API
         const response1 = await fetch(`https://inmobimapa-backend-develop.appspot.com/_ah/api/common/v1/getIdAndNameRVByEmail?email=${email}`);
