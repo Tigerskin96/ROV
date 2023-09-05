@@ -1,4 +1,48 @@
-    const miFormulario = document.getElementById('miFormulario');
+      const miFormulario = document.getElementById('miFormulario');
+
+    /*-------------------------------------------
+    ---------------------------------------------
+    Pintar botone al seleccionar todos
+    ---------------------------------------------
+    -------------------------------------------*/
+    //Seleccionamos todos los botones
+    const listUsers = document.querySelectorAll('input[name="users"]');
+    const listCanal = document.querySelectorAll('input[name="canal"]');
+    const listPlataform = document.querySelectorAll('input[name="plataforma"]');
+    
+    const allUsersBTN = document.querySelector('#users_all');
+    const allPlataformBTN = document.querySelector('#plataforma_all');
+    const allCanalBTN = document.querySelector('#canal_todos');
+
+    allUsersBTN.addEventListener('click', (e)=>{
+        if(e.target.checked){
+            selectAll(true, listUsers);
+        }else{
+            selectAll(false, listUsers);
+        }
+    });
+    allPlataformBTN.addEventListener('click', (e)=>{
+        if(e.target.checked){
+            selectAll(true, listPlataform);
+        }else{
+            selectAll(false, listPlataform);
+        }
+    });
+    allCanalBTN.addEventListener('click', (e)=>{
+        if(e.target.checked){
+            selectAll(true, listCanal);
+        }else{
+            selectAll(false, listCanal);
+        }
+    });
+    function selectAll(checked, list){
+        if(checked){
+            list.forEach((e)=>e.checked = true);
+        }else{
+            list.forEach((e)=>e.checked = false);
+        }
+    }
+
 
     miFormulario.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -11,7 +55,12 @@
         const canalesSeleccionados = Array.from(canalCheckboxes).map(checkbox => checkbox.value);
         const plataformasSeleccionadas = Array.from(plataformaCheckboxes).map(checkbox => checkbox.value);
 
-        
+            let notificationValue = false; // Valor predeterminado es false
+
+            if (dispositivoSeleccionado === 'ANDROID' || dispositivoSeleccionado === 'IOS' || dispositivoSeleccionado === 'NONE') {
+            notificationValue = true;
+            }
+            
         const titulo = document.getElementById('titulo').value;
         const descripcion = document.getElementById('descripcion').value;
         const url = document.getElementById('url').value;
@@ -25,6 +74,8 @@
         if (plataformasSeleccionadas.includes('Global MLS') || plataformasSeleccionadas.includes('Todos')) {
             apiEndpoints.push('https://inmobimapa-backend-develop.appspot.com/_ah/api/common/v1/sendMarketingGPanel'); // endpoint Global
         }
+        
+        await subirImagen();
 
         const solicitud = {
             userIds: [selectedUser.id], // llama el array que se debe de generar
@@ -37,13 +88,13 @@
             },
             deviceTypeEnum: dispositivoSeleccionado, // solo toma el primer dispositivo seleccionado para que no truene
             email: canalesSeleccionados.includes('Email'),
-            notification: true,
+            notification: notificationValue,
             telegram: canalesSeleccionados.includes('Telegram'),
             whatsApp: canalesSeleccionados.includes('WhatsApp')
         };
 
         console.log(JSON.stringify(solicitud)); // Imprime solicitud en la consola para verificar que se mande correcto
-
+        
         try {
             for (const endpoint of apiEndpoints) {
                 const response = await fetch(endpoint, {
@@ -101,33 +152,31 @@ async function upload(files) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const subirImagenBtn = document.getElementById('subirImagenBtn');
-    subirImagenBtn.addEventListener('click', async function () {
-        const archivoInput = document.getElementById('archivo');
-        const archivo = archivoInput.files[0]; // Obtener la imagen
+async function subirImagen() {
+    const archivoInput = document.getElementById('archivo');
+    const archivo = archivoInput.files[0]; // Obtener la imagen
 
-        if (archivo && isImageFile(archivo)) {
-            const files = [
-                {
-                    name: archivo.name,
-                    source: archivo
-                }
-            ];
-            try {
-                const result = await upload(files);
-                console.log('Upload result:', result);
-                console.log('Uploaded Image URL:', uploadedImageUrl);
-                alert("la imagen se subio correctamente")
-            } catch (error) {
-                console.error('Upload error:', error);
+    if (archivo && isImageFile(archivo)) {
+        const files = [
+            {
+                name: archivo.name,
+                source: archivo
             }
-        } else {
-            console.error('El archivo seleccionado no es válido.');
-            alert("El archivo seleccionado no es válido.");
+        ];
+        try {
+            const result = await upload(files);
+            console.log('Upload result:', result);
+            console.log('Uploaded Image URL:', uploadedImageUrl);
+            alert("la imagen se subio correctamente")
+        } catch (error) {
+            console.error('Upload error:', error);
         }
-    });
-});
+    } else {
+        console.error('El archivo seleccionado no es válido.');
+        alert("El archivo seleccionado no es válido.");
+    }
+}
+
 
 
 
