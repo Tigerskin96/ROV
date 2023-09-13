@@ -1,4 +1,4 @@
-    const miFormulario = document.getElementById('miFormulario');
+     const miFormulario = document.getElementById('miFormulario');
 
     /*-------------------------------------------
     ---------------------------------------------
@@ -178,6 +178,7 @@ async function subirImagen() {
 }
 
 
+/*
 
 const selectedUsersArray = [];
 // busqueda de usuarios
@@ -197,6 +198,11 @@ searchBox.addEventListener('input', () => {
         }
     }, 1500); // Establecer un temporizador de 1.5 segundos
 });
+
+
+
+
+
 
 async function searchUsersByEmail(email) {  //colocar timestap 1 
     try {
@@ -265,6 +271,93 @@ async function searchUsersByEmail(email) {  //colocar timestap 1
 function showAlert(user) {
     alert(`Usuario Seleccionado:\nNombre: ${user.name}\nID: ${user.id}\nFuente: ${user.source}`);
     // Agrega el usuario seleccionado al array global
+    selectedUsersArray.push(user);
+    console.log('ids agregados:', selectedUsersArray);
+}
+
+*/
+
+const selectedUsersArray = [];
+const searchBox = document.getElementById('search-box');
+const resultsList = document.getElementById('results');
+let selectedUser = null;
+let countdownTimer = null;
+
+searchBox.addEventListener('input', () => {
+    clearTimeout(countdownTimer);
+    countdownTimer = setTimeout(() => {
+        const email = searchBox.value.trim();
+        if (email !== '') {
+            searchUsersByEmail(email);
+        } else {
+            resultsList.innerHTML = '';
+        }
+    }, 1500);
+});
+
+// Evento para detectar cambios en los checkboxes
+const plataformaRentaVentaCheckbox = document.getElementById('plataforma_renta_venta');
+const plataformaGlobalMLSCheckbox = document.getElementById('plataforma_global_mls');
+
+plataformaRentaVentaCheckbox.addEventListener('change', () => {
+    if (plataformaRentaVentaCheckbox.checked) {
+        plataformaGlobalMLSCheckbox.checked = false; // Desmarca el otro checkbox si está marcado
+    }
+});
+
+plataformaGlobalMLSCheckbox.addEventListener('change', () => {
+    if (plataformaGlobalMLSCheckbox.checked) {
+        plataformaRentaVentaCheckbox.checked = false; // Desmarca el otro checkbox si está marcado
+    }
+});
+
+async function searchUsersByEmail(email) {
+    try {
+        let apiUrl = '';
+
+        if (plataformaRentaVentaCheckbox.checked) {
+            apiUrl = `https://inmobimapa-backend-develop.appspot.com/_ah/api/common/v1/getIdAndNameRVByEmail?email=${email}`;
+        } else if (plataformaGlobalMLSCheckbox.checked) {
+            apiUrl = `https://inmobimapa-backend-develop.appspot.com/_ah/api/common/v1/getIdAndNameGByEmail?email=${email}`;
+        } else {
+            return; // Si ninguno está seleccionado, no hagas nada.
+        }
+
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        resultsList.innerHTML = '';
+
+        if (data.code === 200) {
+            for (const key in data.item) {
+                if (data.item.hasOwnProperty(key)) {
+                    const userLi = document.createElement('li');
+                    userLi.textContent = `${data.item[key]} -ID: ${key} - ${plataformaRentaVentaCheckbox.checked ? 'Renta o Venta' : 'GlobalMLS'}`;
+                    userLi.addEventListener('click', () => {
+                        selectedUser = {
+                            name: data.item[key],
+                            id: key,
+                            source: plataformaRentaVentaCheckbox.checked ? 'Renta o Venta' : 'GlobalMLS'
+                        };
+                        showAlert(selectedUser);
+                    });
+                    resultsList.appendChild(userLi);
+                }
+            }
+        }
+
+        if (data.code !== 200) {
+            const errorLi = document.createElement('li');
+            errorLi.textContent = 'No se encontraron usuarios con ese email.';
+            resultsList.appendChild(errorLi);
+        }
+    } catch (error) {
+        console.error('Error al buscar usuarios:', error);
+    }
+}
+
+function showAlert(user) {
+    alert(`Usuario Seleccionado:\nNombre: ${user.name}\nID: ${user.id}\nFuente: ${user.source}`);
     selectedUsersArray.push(user);
     console.log('ids agregados:', selectedUsersArray);
 }
