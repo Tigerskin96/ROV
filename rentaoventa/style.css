@@ -9,6 +9,7 @@
 }
 .layout {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     margin-left: 10px;
     font-family:Georgia, 'Times New Roman', Times, serif;
@@ -17,8 +18,9 @@
     margin-top: 35px;
     margin-left: 30px;
     display: flex;
-    gap: 16px;
-    justify-content: left;
+    flex-wrap: wrap;
+    /*gap: 16px;*/
+    justify-content: space-around;
     align-items: center;
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
@@ -63,6 +65,19 @@ header {
     gap: 8px;
     transition: all ease-in-out 0.25s;
 }
+.btnAleatorioContent{
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.btnAleatorioContent>button{
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    background: #56b3b2;
+    color: #fff;
+    border: none;
+}
 
 
 .main-item:hover {
@@ -106,6 +121,23 @@ header {
     align-items: center;
     flex-direction: column;
 }
+.accordion-container>.listOptions>li {
+    height: 48px;
+    display: flex;
+    width: calc(100% + 30px);
+    align-items: center;
+    /*left: -10px;*/
+    position: relative;
+
+    & label:hover, input:hover{
+        cursor: pointer;
+    }
+
+    & label, input{
+        position: relative;
+        left: 30px;
+    }
+}
 
 .accordion-container>ul>li {
     height: 48px;
@@ -120,7 +152,6 @@ header {
     position: relative;
     left: 10px;
 }
-
 .accordion-container>ul>li:hover {
     background-color: var(--hover);
     color: var(--color);
@@ -198,6 +229,19 @@ form {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    & .imgContent{
+        text-align: center;
+        width: 100%;
+        border: none;
+        
+        & img{
+            border-radius: 5px;
+            border: 1px solid var(--primario);
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+        }
+    }
 }
 
 /* Estilos para los títulos */
@@ -299,9 +343,11 @@ input[type="submit"]:hover {
         }
     
         .layout_dos {
-            margin-top: 15px;
-            flex-direction: column;
-            gap: 8px;
+            margin: 15px 10px 0 10px;   
+            & div{
+                width: 100%;
+                display: flex;
+            }
         }
     
         .main-item {
@@ -321,4 +367,36 @@ input[type="submit"]:hover {
 
 #url {
     border: 1px solid var(--primario); /* Establece el estilo inicial del borde */
+}
+
+
+.sectionUsersList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+
+    & .tableListContent{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        overflow-x: auto;
+    }
+}
+
+table {
+    margin-bottom: 20px;
+    text-align: center;
+    & th{
+        padding: 10px;
+    }
+    & button{
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 10px;
+        border: none;
+    }
 }

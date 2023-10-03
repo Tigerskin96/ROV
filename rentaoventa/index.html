@@ -16,14 +16,39 @@
         <h3>Notificaciones</h3>
     </header>
     <main>
-
+        <div class="btnAleatorioContent">
+            <button class="btnAleatorio">
+                Llenar aleatoriamente
+            </button>
+        </div>
+        <section class="layout_dos">
+            <div class="search-container">
+                <input type="text" id="search-box" placeholder="Ingrese Correo Electronico">
+                <button id="search-button"> <i class="fa-solid fa-magnifying-glass"></i></button>
+                <ul id="results"></ul>
+            </div>
+            <div class="sectionUsersList">
+                <h1>Lista de Usuarios</h1>
+                <div class="tableListContent">
+                    <table class="tableUsersList">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Id</th>
+                            <th>Plataforma</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
         <section class="layout">
             <div>
                 <nav class="accordion-container">
                     <div class="main-item">
                         <span>Brands</span><i class="fa-solid fa-circle-chevron-down"></i>
                     </div>
-                    <ul>
+                    <ul class="listOptions">
                         <li>
                             <input type="checkbox" id="users_all" name="users" value="usuarios">
                             <label for="users_all">Todos</label>
@@ -58,17 +83,17 @@
                     <div class="main-item">
                         <span>Plataforma</span><i class="fa-solid fa-circle-chevron-down"></i>
                     </div>
-                    <ul>
-                        <li>
+                    <ul class="listOptions">
+                        <!--li>
                             <input type="checkbox" id="plataforma_all" name="plataforma" value="plataforma">
                             <label for="plataforma_all">Todos</label>
-                        </li>
+                        </li-->
                         <li>
-                            <input type="checkbox" id="plataforma_renta_venta" name="plataforma" value="Renta o Venta">
+                            <input type="radio" id="plataforma_renta_venta" name="plataforma" value="Renta o Venta">
                             <label for="plataforma_renta_venta">Renta o Venta</label>
                         </li>
                         <li>
-                            <input type="checkbox" id="plataforma_global_mls" name="plataforma" value="Global MLS">
+                            <input type="radio" id="plataforma_global_mls" name="plataforma" value="Global MLS">
                             <label for="plataforma_global_mls">Global MLS</label>
                         </li>
                     </ul>
@@ -79,22 +104,22 @@
                     <div class="main-item">
                         <span>Dispositivos</span><i class="fa-solid fa-circle-chevron-down"></i>
                     </div>
-                    <ul>
+                    <ul class="listOptions">
                         <li>
                             <input type="radio" id="NONE" name="dispositivo" value="NONE">
-                            <label for="dispositivo_all">Todos</label>
+                            <label for="NONE">Todos</label>
                         </li>
                         <li>
                             <input type="radio" id="ANDROID" name="dispositivo" value="ANDROID">
-                            <label for="android">Android</label>
+                            <label for="ANDROID">Android</label>
                         </li>
                         <li>
                             <input type="radio" id="IOS" name="dispositivo" value="IOS">
-                            <label for="ios">iOS</label>
+                            <label for="IOS">IOS</label>
                         </li>
                         <li>
                             <input type="radio" id="WEB" name="dispositivo" value="WEB">
-                            <label for="web">Web</label>
+                            <label for="WEB">Web</label>
                         </li>
                     </ul>
 
@@ -105,7 +130,7 @@
                     <div class="main-item">
                         <span>Canal</span><i class="fa-solid fa-circle-chevron-down"></i>
                     </div>
-                    <ul>
+                    <ul class="listOptions">
                         <li>
                             <input type="checkbox" id="canal_todos" name="canal" value="todos">
                             <label for="canal_todos">Todos</label>
@@ -133,25 +158,20 @@
                     </div>
                     <input type="text" id="titulo" name="titulo" placeholder="Ingresa titulo" ><br><br>
 
-                    <input type="file" id="archivo" name="archivo" placeholder="cargar imagen" ><br><br>
+                    <input type="file" id="archivo" name="archivo" placeholder="cargar imagen" ><br>
+                    <div class="imgContent">
+                        <img class="imgMuestra">
+                    </div>
+                    <br>
                     <!--<input type="button" value="subir imagen" id="subirImagenBtn"><br><br>-->
 
-                    <textarea type="text" id="descripcion" name="descripcion" placeholder="Ingresa descripcion" rows="2" cols="40" style="resize: none;">
-                    </textarea>    <br><br>
+                    <textarea type="text" id="descripcion" name="descripcion" placeholder="Ingresa descripcion" rows="2" cols="40" style="resize: none;"></textarea>    <br><br>
 
                     <input type="text" id="url" name="url" placeholder="Ingresa URL"required ><br><br>
 
                     <input type="submit" value="Enviar">
                 </form>
             </div>
-        </section>
-        <section class="layout_dos">
-            <div class="search-container">
-                <input type="text" id="search-box" placeholder="Ingrese Correo Electronico">
-                <button id="search-button"> <i class="fa-solid fa-magnifying-glass"></i></button>
-                <ul id="results"></ul>
-            </div>
-            
         </section>
         <footer>    
         </footer>
