@@ -13,13 +13,13 @@ mainItems.forEach((mainItem) => {
 
 //ventana script
 
-const openModalBtn = document.getElementById("openModalBtn");
+//const openModalBtn = document.getElementById("openModalBtn");
 const modal = document.getElementById("myModal");
 
 //abre la ventana cuando se presiona el boton 
-openModalBtn.addEventListener("click", () => {
+/*openModalBtn.addEventListener("click", () => {
   modal.style.display = "block";
-});
+});*/
 
 // Cierra la ventana cuando se haga clic fuera de él
 window.addEventListener("click", (event) => {
@@ -46,5 +46,3 @@ function validarURL() {
 function resetBorderColor() {
   document.getElementById("url").style.borderColor = ""; 
 }
-
-
